@@ -10,17 +10,20 @@ using namespace std;
 
 class Solution{
 public:
-    int toyCount(int N, int k, vector<int> arr)
+    int toyCount(int N, int K, vector<int> arr)
     {
         // code here
-        sort(arr.begin(),arr.end());
+        priority_queue<int, vector<int>, greater<int>>pq(arr.begin(),arr.end());
         int count=0;
-        int i=0;
-        while(k>=0 && i<N){
-            k-=arr[i];
-            i++;
-            if(k>=0)
+        while(K>=0 && pq.empty()==false){
+            if(pq.top()<=K){
                 count++;
+                K-=pq.top();
+                pq.pop();
+            }
+            else{
+                return count;
+            }
         }
         return count;
     }
